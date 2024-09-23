@@ -1,0 +1,28 @@
+version = 1
+requires-python = ">=3.9, <3.12"
+
+[[package]]
+name = "minijinja"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/59/f5/f6937bd43692348d2825a9c32b1fd84368853b0dfc7fdd6aa28934eac5d0/minijinja-2.2.0.tar.gz", hash = "sha256:4411052c7a60f8d56468cc6d17d45d72be3d5e89e9578a04f8336cc56601523c", size = 203123 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/ad/6664b63f56449ba74421544a1cd20c57d3f5877d33a3b923f27721465e31/minijinja-2.2.0-cp38-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:e4154fcf72e81be01c2733b770e6cb3e584851cb2fa73c58e347b04967d3d7c0", size = 1585656 },
+    { url = "https://files.pythonhosted.org/packages/8f/83/46d715217e6d378dac7130e125ec4415a58b0d53ceda6a54d6d105c7c77f/minijinja-2.2.0-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4b05e0070c08b550fa9a09ff9c051f47424674332dd56cc54b997dd602887907", size = 806492 },
+    { url = "https://files.pythonhosted.org/packages/48/66/bd31830f087226ae5d223fe287b3e4d24f5772d5ad758e32988fe77e4642/minijinja-2.2.0-cp38-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:360ea4a93fdf1fe327f3e70eed20ecb29f324ca28fae177de0605dcc29869300", size = 807719 },
+    { url = "https://files.pythonhosted.org/packages/80/f0/87dbc02dc870d0bf50a064edf41fb255014d248bf118a3ee6b5721fc33dc/minijinja-2.2.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c9cad5ccb021ef25b6a271158f4d6636474edb08cd1dd49355aac6b68a48aebb", size = 861873 },
+    { url = "https://files.pythonhosted.org/packages/62/ea/6b39d37700d72581d8fa5b843f92a9930016b4b381022461c0de6602859e/minijinja-2.2.0-cp38-abi3-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:7a85c67c519b413fc4892854782927e1244a24cbbb3a3cb0ac5e57d9fdb1868c", size = 935137 },
+    { url = "https://files.pythonhosted.org/packages/fb/a6/c835281b7e96b12ab87b12bac63d0b423caa3b1decd47f698e9317a0a38f/minijinja-2.2.0-cp38-abi3-win32.whl", hash = "sha256:e431a2467dd6e1bcb7c511e9fbad012b02c6e5453acdd9fbd4c4af0d34a3d1c5", size = 729957 },
+    { url = "https://files.pythonhosted.org/packages/68/df/ac513277e86e95d454a30ea0f303f32f9ba83a34ac286fa0df6a573da206/minijinja-2.2.0-cp38-abi3-win_amd64.whl", hash = "sha256:d4df7e4a09be4249c8243207fa89e6f4d22b853c2b565a99f48e478a30713822", size = 762232 },
+]
+
+[[package]]
+name = "slang"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "minijinja" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "minijinja", specifier = ">=2.2.0" }]

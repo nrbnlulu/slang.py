@@ -1,0 +1,11 @@
+[project]
+name = "slang"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "<3.12, >=3.9"
+dependencies = [
+    "minijinja>=2.2.0",
+]
+
+
