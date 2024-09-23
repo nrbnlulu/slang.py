@@ -1,8 +1,6 @@
 from __future__ import annotations
 import abc
 from dataclasses import dataclass
-import dataclasses
-import enum
 
 @dataclass(slots=True)
 class BaseField(abc.ABC):
