@@ -40,9 +40,9 @@ def parse_entry(
     ctx: LocaleImpl, k: str, v: Any, parent: NameSpaceField | None = None
 ) -> BaseField:
     if match := complex_f_pattern.fullmatch(k):
-        return parse_complex(ctx, match, v)
+        return parse_complex(ctx, match, v, parent=parent)
     if isinstance(v, dict):
-        return parse_namespace(ctx, v, k)
+        return parse_namespace(ctx, v, k, parent=parent)
     else:
         return SimpleField(name=k, value=v, parent=parent)
 
