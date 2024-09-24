@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = "<3.12, >=3.9"
 dependencies = [
     "minijinja>=2.2.0",
+    "result>=0.17.0",
 ]
 
 
@@ -20,3 +21,8 @@ packages = ["slang"]
 [tool.pyright]
 include = ["slang", "tests"]
 typeCheckingMode = "standard"
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.6.7",
+]
