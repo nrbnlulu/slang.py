@@ -26,4 +26,5 @@ typeCheckingMode = "standard"
 dev-dependencies = [
     "pytest>=8.3.3",
     "ruff>=0.6.7",
+    "syrupy>=4.7.1",
 ]

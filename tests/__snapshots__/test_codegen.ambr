@@ -1,0 +1,56 @@
+# serializer version: 1
+# name: test_complex_field_proto
+  '''
+  
+  from __future__ import annotations
+  from typing import Protocol
+  
+  class TranslationsProto(Protocol):
+      def complex(self,arg1: str, arg2: int, arg3: bool, arg4: float) -> str:
+          raise NotImplementedError()
+  
+      
+  
+  '''
+# ---
+# name: test_namespace_field_proto
+  '''
+  
+  from __future__ import annotations
+  from typing import Protocol
+  
+  class Locale_heb_namespaceProto(Protocol):
+  
+      @property
+      def simple(self) -> str:
+          raise NotImplementedError()
+  
+      def complex(self,arg1: str) -> str:
+          raise NotImplementedError()
+  
+      
+  class TranslationsProto(Protocol):
+      
+      @property
+      def namespace(self) -> Locale_heb_namespaceProto:
+          raise NotImplementedError()
+  
+      
+  
+  '''
+# ---
+# name: test_simple_field_proto
+  '''
+  
+  from __future__ import annotations
+  from typing import Protocol
+  
+  class TranslationsProto(Protocol):
+      @property
+      def simple(self) -> str:
+          raise NotImplementedError()
+  
+      
+  
+  '''
+# ---

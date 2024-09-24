@@ -3,7 +3,8 @@ import abc
 from dataclasses import dataclass
 import dataclasses
 import enum
-from typing import Callable, TypeVar
+from functools import cached_property
+from typing import Callable, Iterable, TypeVar
 from result import Result, Ok, Err
 
 
@@ -57,6 +58,27 @@ def _find_field_error(
 @dataclass(slots=True, kw_only=True)
 class NameSpaceField(BaseField):
     fields: list[BaseField] = dataclasses.field(default_factory=list)
+
+    @property
+    def is_namespace(self) -> bool:
+        return True
+    
+    def get_child_namespace_fields(self) -> list[NameSpaceField]:
+        ret: list[NameSpaceField] = []
+        for field in self.fields:
+            if isinstance(field, NameSpaceField):
+                ret.extend(field.get_child_namespace_fields())
+                ret.append(field)
+        return ret
+
+    @property
+    def class_name(self) -> str:
+        full_name = self.full_name
+        return full_name.replace(".", "_").capitalize()
+
+    @property
+    def proto_name(self) -> str:
+        return f"{self.class_name}Proto"
 
     def get_field(self, name: str) -> BaseField:
         for field in self.fields:
@@ -129,6 +151,17 @@ class ArgumentType(enum.Enum):
             return cls.BOOL
         raise ValueError(f"Unknown argument kind: {kind}")
 
+    @property
+    def as_py(self) -> str:
+        if self == ArgumentType.INT:
+            return "int"
+        if self == ArgumentType.STR:
+            return "str"
+        if self == ArgumentType.FLOAT:
+            return "float"
+        if self == ArgumentType.BOOL:
+            return "bool"
+        raise ValueError(f"Unknown argument kind: {self}")
 
 @dataclass(slots=True, kw_only=True)
 class ArgumentDefinition:
@@ -190,9 +223,20 @@ class LocaleImpl:
         """Ensure that both of the implementations has the same fields."""
         return self.get_root().compatible(other.get_root(), current_namespace)
 
+    @property
+    def all_namespace_fields(self) -> list[NameSpaceField]:
+        ret: list[NameSpaceField] = []
+        for field in self.get_root().fields:
+            if isinstance(field, NameSpaceField):
+                ret.extend(field.get_child_namespace_fields())
+                ret.append(field)
+        return ret
+                
+    
 
 @dataclass(slots=True, kw_only=True)
 class SlangCtx:
     ref_locale: LocaleImpl
     """Reference locale, all locales should match this one."""
-    locales: list[LocaleImpl]
+    locales: list[LocaleImpl] = dataclasses.field(default_factory=list)
+ 
