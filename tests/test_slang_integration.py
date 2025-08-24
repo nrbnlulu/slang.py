@@ -25,13 +25,21 @@ class TestSlangIntegration:
         project_dir = tmp_path / "test_project"
         project_dir.mkdir()
 
-        # Create pyproject.toml
-        pyproject_content: dict[str, Any] = {
-            "project": {"name": "test-project", "version": "0.1.0"}
+        # Create pyproject.toml with default slang config
+        default_slang_config = {
+            "output_dir": "slang/gen",
+            "translations_dir": "translations",
+            "main_language": "en",
         }
 
+        # Override with any custom config
         if config:
-            pyproject_content["tool"] = {"slang": config}
+            default_slang_config.update(config)
+
+        pyproject_content: dict[str, Any] = {
+            "project": {"name": "test-project", "version": "0.1.0"},
+            "tool": {"slang": default_slang_config},
+        }
 
         with open(project_dir / "pyproject.toml", "wb") as f:
             import tomli_w
@@ -40,12 +48,12 @@ class TestSlangIntegration:
 
         # Create translations if provided
         if translations:
-            config_obj = SlangConfig()
+            config_obj = SlangConfig(
+                output_dir=Path("slang/gen"), translations_dir=Path("translations")
+            )
             if config:
-                config_obj.output_dir = config.get("output_dir", "slang/gen")
-                config_obj.translations_dir = config.get(
-                    "translations_dir", "translations"
-                )
+                config_obj.output_dir = Path(config.get("output_dir", "slang/gen"))
+                config_obj.translations_dir = Path(config.get("translations_dir", "translations"))
                 config_obj.main_language = config.get("main_language", "en")
 
             translations_dir = project_dir / config_obj.translations_dir
@@ -78,7 +86,7 @@ class TestSlangIntegration:
         result = generate_translations(project_dir)
         assert result.is_ok(), f"Generation failed: {result.err()}"
 
-        code = result.unwrap()
+        code, output_file = result.unwrap()
 
         # Check that the generated code contains expected elements
         assert "class Languages(Enum)" in code
@@ -102,14 +110,12 @@ class TestSlangIntegration:
             "en": {"bonjour": "Hello", "au_revoir": "Goodbye"},
         }
 
-        project_dir = self.create_temp_project(
-            tmp_path, config=config, translations=translations
-        )
+        project_dir = self.create_temp_project(tmp_path, config=config, translations=translations)
 
         result = generate_translations(project_dir)
         assert result.is_ok()
 
-        code = result.unwrap()
+        code, path = result.unwrap()
         assert 'FR = "fr"' in code
         assert 'EN = "en"' in code
 
@@ -186,9 +192,7 @@ class TestSlangIntegration:
             # fr is missing
         }
 
-        project_dir = self.create_temp_project(
-            tmp_path, config=config, translations=translations
-        )
+        project_dir = self.create_temp_project(tmp_path, config=config, translations=translations)
 
         result = generate_translations(project_dir)
         assert result.is_err()
@@ -251,7 +255,7 @@ class TestSlangIntegration:
         result = generate_translations(project_dir)
         assert result.is_ok()
 
-        code = result.unwrap()
+        code, output_file = result.unwrap()
         # Check that parameter types are preserved
         assert "name: str, age: int" in code
         assert "count: int" in code
@@ -265,14 +269,12 @@ class TestSlangIntegration:
             "pt-BR": {"hello": "Olá (Brasil)"},
         }
 
-        project_dir = self.create_temp_project(
-            tmp_path, config=config, translations=translations
-        )
+        project_dir = self.create_temp_project(tmp_path, config=config, translations=translations)
 
         result = generate_translations(project_dir)
         assert result.is_ok()
 
-        code = result.unwrap()
+        code, output_file = result.unwrap()
         # Check normalized enum names
         assert 'EN_US = "en-US"' in code
         assert 'ZH_CN = "zh-CN"' in code
@@ -324,7 +326,7 @@ class TestSlangIntegration:
         project_dir.mkdir()
 
         # No pyproject.toml file
-        translations_dir = project_dir / "translations"  # default
+        translations_dir = project_dir / "i18n"  # default
         translations_dir.mkdir()
 
         translations = {
@@ -354,7 +356,7 @@ class TestSlangIntegration:
         result = generate_translations(project_dir)
         assert result.is_ok()
 
-        code = result.unwrap()
+        code, output_file = result.unwrap()
 
         # Verify structure
         lines = code.split("\n")
@@ -379,6 +381,4 @@ class TestSlangIntegration:
         assert any("class Translations_en(TranslationsProto)" in line for line in lines)
 
         # Should have get_translations function
-        assert any(
-            "def get_translations(language: Languages)" in line for line in lines
-        )
+        assert any("def get_translations(language: Languages)" in line for line in lines)

@@ -86,10 +86,9 @@ result = generate_translations(Path.cwd())
 if result.is_err():
     print(f"Error: {result.err()}")
 else:
-    code = result.unwrap()
-    # Save to file or use directly
-    with open("generated/translations.py", "w") as f:
-        f.write(code)
+    code, output_file = result.unwrap()
+    print(f"Generated code saved to: {output_file}")
+    # Code is already written to file, but you can also use it directly
 ```
 
 ### 5. Use Your Translations
@@ -169,7 +168,7 @@ main_language = "en"              # Reference language (must exist)
 
 ## API Reference
 
-### `generate_translations(project_path: Path | None = None) -> Result[str, str]`
+### `generate_translations(project_path: Path | None = None) -> Result[tuple[str, Path], str]`
 
 Generates type-safe translation code from YAML files.
 
@@ -177,7 +176,7 @@ Generates type-safe translation code from YAML files.
 - `project_path`: Path to project root (defaults to current directory)
 
 **Returns:**
-- `Result[str, str]`: Generated Python code or error message
+- `Result[tuple[str, Path], str]`: Tuple of (generated Python code, output file path) or error message
 
 **Example:**
 ```python
@@ -186,8 +185,8 @@ from pathlib import Path
 
 result = generate_translations(Path("/path/to/project"))
 if result.is_ok():
-    code = result.unwrap()
-    print(code)
+    code, output_file = result.unwrap()
+    print(f"Generated {len(code)} lines to {output_file}")
 else:
     print(f"Error: {result.err()}")
 ```

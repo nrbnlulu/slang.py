@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-
 from enum import Enum
+
+from typing import Protocol
+
+
 
 class Languages(Enum):
     """Available languages for translations."""
@@ -13,7 +16,7 @@ class Languages(Enum):
     FR = "fr"
 
 
-from typing import Protocol
+
 
 class Locale_en_appProto(Protocol):
 
@@ -739,7 +742,7 @@ class Locale_es_notifications(Locale_en_notificationsProto):
     def friend_request(self, user: str) -> str:
         return '{user} te envió una solicitud de amistad'.format(user=user)
 
-    def system_update(self, minutes: str) -> str:
+    def system_update(self, minutes: int) -> str:
         return 'El sistema se actualizará en {minutes} minutos'.format(minutes=minutes)
 
 
@@ -1037,7 +1040,7 @@ class Locale_fr_notifications(Locale_en_notificationsProto):
     def friend_request(self, user: str) -> str:
         return "{user} vous a envoyé une demande d'ami".format(user=user)
 
-    def system_update(self, minutes: str) -> str:
+    def system_update(self, minutes: int) -> str:
         return 'Le système se mettra à jour dans {minutes} minutes'.format(minutes=minutes)
 
 

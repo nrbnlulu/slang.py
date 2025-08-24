@@ -43,10 +43,7 @@ class TranslationsProto(Protocol):
 
 """
 
-languages_enum_template = """
-from enum import Enum
-
-class Languages(Enum):
+languages_enum_template = """class Languages(Enum):
     \"\"\"Available languages for translations.\"\"\"
 {% for enum_name, lang_code in languages %}
     {{ enum_name }} = "{{ lang_code }}"
@@ -114,9 +111,7 @@ def render_languages_enum(languages: list[str]) -> str:
     return tem_env.render_template("languages_enum", languages=enum_languages)
 
 
-def render_implementation(
-    class_name: str, locale_impl: LocaleImpl, ref_locale: LocaleImpl
-) -> str:
+def render_implementation(class_name: str, locale_impl: LocaleImpl, ref_locale: LocaleImpl) -> str:
     """Render implementation classes for a locale using reference locale protocols."""
     from .types_ import SimpleField, ComplexField, NameSpaceField
 
@@ -150,13 +145,9 @@ def render_implementation(
         return {repr(field.value)}"""
                 methods.append(method)
             elif field.is_complex and isinstance(field, ComplexField):
-                args = ", ".join(
-                    f"{arg.name}: {arg.type.as_py}" for arg in field.arguments
-                )
+                args = ", ".join(f"{arg.name}: {arg.type.as_py}" for arg in field.arguments)
                 # Generate template substitution code
-                format_args = ", ".join(
-                    f"{arg.name}={arg.name}" for arg in field.arguments
-                )
+                format_args = ", ".join(f"{arg.name}={arg.name}" for arg in field.arguments)
                 method = f"""    def {field.name}(self, {args}) -> str:
         return {repr(field.template)}.format({format_args})"""
                 methods.append(method)
@@ -195,13 +186,9 @@ def render_implementation(
         return {repr(field.value)}"""
                 methods.append(method)
             elif field.is_complex and isinstance(field, ComplexField):
-                args = ", ".join(
-                    f"{arg.name}: {arg.type.as_py}" for arg in field.arguments
-                )
+                args = ", ".join(f"{arg.name}: {arg.type.as_py}" for arg in field.arguments)
                 # Generate template substitution code
-                format_args = ", ".join(
-                    f"{arg.name}={arg.name}" for arg in field.arguments
-                )
+                format_args = ", ".join(f"{arg.name}={arg.name}" for arg in field.arguments)
                 method = f"""    def {field.name}(self, {args}) -> str:
         return {repr(field.template)}.format({format_args})"""
                 methods.append(method)
@@ -233,6 +220,4 @@ def render_get_translations(translations: Dict[str, LocaleImpl]) -> str:
         class_name = f"Translations_{lang_code.replace('-', '_').replace('.', '_')}"
         language_mappings.append((enum_name, class_name))
 
-    return tem_env.render_template(
-        "get_translations", language_mappings=language_mappings
-    )
+    return tem_env.render_template("get_translations", language_mappings=language_mappings)

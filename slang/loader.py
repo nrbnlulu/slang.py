@@ -23,9 +23,7 @@ class TranslationLoader:
     def load_all_translations(self) -> Result[Dict[str, LocaleImpl], str]:
         """Load all translation files and validate consistency."""
         if not self.translations_path.exists():
-            return Err(
-                f"Translations directory '{self.translations_path}' does not exist"
-            )
+            return Err(f"Translations directory '{self.translations_path}' does not exist")
 
         # Find all YAML files
         yaml_files = list(self.translations_path.glob("*.yml")) + list(
@@ -66,15 +64,11 @@ class TranslationLoader:
 
         # Ensure main language exists
         if self.config.main_language not in translations:
-            return Err(
-                f"Main language '{self.config.main_language}' not found in translations"
-            )
+            return Err(f"Main language '{self.config.main_language}' not found in translations")
 
         return Ok(translations)
 
-    def _load_yaml_file(
-        self, file_path: Path, lang_code: str
-    ) -> Result[LocaleImpl, str]:
+    def _load_yaml_file(self, file_path: Path, lang_code: str) -> Result[LocaleImpl, str]:
         """Load a single YAML translation file."""
         try:
             with open(file_path, "r", encoding="utf-8") as f:
@@ -109,9 +103,7 @@ class TranslationLoader:
         """Recursively collect keys from a field."""
         if isinstance(field, NameSpaceField):
             for child_field in field.fields:
-                field_name = (
-                    f"{prefix}.{child_field.name}" if prefix else child_field.name
-                )
+                field_name = f"{prefix}.{child_field.name}" if prefix else child_field.name
                 if child_field.is_simple or child_field.is_complex:
                     keys.add(field_name)
                 elif child_field.is_namespace:
@@ -132,16 +124,12 @@ class TranslationLoader:
             # Check for missing keys
             missing_keys = main_keys - lang_keys
             if missing_keys:
-                errors.append(
-                    f"Language '{lang_code}' is missing keys: {sorted(missing_keys)}"
-                )
+                errors.append(f"Language '{lang_code}' is missing keys: {sorted(missing_keys)}")
 
             # Check for extra keys
             extra_keys = lang_keys - main_keys
             if extra_keys:
-                errors.append(
-                    f"Language '{lang_code}' has extra keys: {sorted(extra_keys)}"
-                )
+                errors.append(f"Language '{lang_code}' has extra keys: {sorted(extra_keys)}")
 
         if errors:
             return Err("Translation key validation failed:\n" + "\n".join(errors))

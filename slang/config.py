@@ -20,7 +20,7 @@ class SlangConfig:
     """Configuration for slang translation generation."""
 
     output_dir: Path
-    translations_dir: Path 
+    translations_dir: Path
     """i.e `./i18n`"""
     main_language: str = "en"
 
@@ -45,7 +45,6 @@ class SlangConfig:
             translations_dir=Path(slang_config.get("translations_dir", "i18n")),
             main_language=slang_config.get("main_language", "en"),
         )
-
 
     @staticmethod
     def _find_pyproject_toml(start_path: Path) -> Path | None:

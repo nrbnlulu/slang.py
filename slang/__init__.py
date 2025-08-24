@@ -17,7 +17,7 @@ from .codegen import (
 )
 
 
-def generate_translations(project_path: Path | None = None) -> Result[Path, str]:
+def generate_translations(project_path: Path | None = None) -> Result[tuple[str, Path], str]:
     """
     Generate type-safe translation interfaces from YAML files.
 
@@ -47,13 +47,13 @@ def generate_translations(project_path: Path | None = None) -> Result[Path, str]
     try:
         code = _generate_code(translations, config)
         output_file = config.output_dir / "translations.py"
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+
         init_py = output_file.parent / "__init__.py"
         if not init_py.exists():
             init_py.touch()
-            
-        output_file.parent.mkdir(parents=True, exist_ok=True)
         output_file.write_text(code)
-        return Ok(output_file)
+        return Ok((code, output_file))
     except Exception as e:
         return Err(f"Code generation failed: {e}")
 
@@ -91,8 +91,11 @@ def _generate_code(translations: Dict[str, LocaleImpl], config: SlangConfig) -> 
     parts = (
         [
             future_import,
-            languages_enum,
+            "from enum import Enum",
             "from typing import Protocol",
+            "",
+            languages_enum,
+            "",
             translations_proto_clean,
         ]
         + implementations

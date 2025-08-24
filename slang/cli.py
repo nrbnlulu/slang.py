@@ -23,6 +23,25 @@ console = Console()
 
 @app.command()
 def generate(
+    project_path: Optional[Path] = typer.Argument(
+        None,
+        help="Path to project root directory (defaults to current directory)",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+    ),
+    output: Optional[Path] = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="Output file path (overrides config)",
+    ),
+    watch: bool = typer.Option(
+        False,
+        "--watch",
+        "-w",
+        help="Watch for changes and regenerate automatically",
+    ),
     verbose: bool = typer.Option(
         False,
         "--verbose",
@@ -32,9 +51,13 @@ def generate(
 ) -> None:
     """Generate type-safe translation code from YAML files."""
 
+    if project_path is None:
+        project_path = Path.cwd()
 
     console.print(Panel.fit("🌍 Slang Translation Generator", style="bold blue"))
 
+    if verbose:
+        console.print(f"📁 Project path: {project_path}")
 
     try:
         with Progress(
@@ -45,7 +68,7 @@ def generate(
         ) as progress:
             task = progress.add_task("Generating translations...", total=None)
 
-            result = generate_translations()
+            result = generate_translations(project_path)
 
             if result.is_err():
                 console.print(f"❌ [red]Error:[/red] {result.err()}")
@@ -53,19 +76,18 @@ def generate(
 
             progress.update(task, description="Writing output file...")
 
-            generated_to = result.unwrap()
-
+            generated_code, generated_file = result.unwrap()
 
             progress.remove_task(task)
 
         console.print("✅ [green]Success![/green] Generated translations saved to:")
-        console.print(f"   📄 {generated_to}")
+        console.print(f"   📄 {generated_file}")
 
         if verbose:
             console.print("\n📊 Generation Stats:")
-            lines = len(generated_to.read_text().split("\n"))
+            lines = len(generated_code.split("\n"))
             console.print(f"   • Lines of code: {lines}")
-            console.print(f"   • File size: {len(generated_to.read_text())} bytes")
+            console.print(f"   • File size: {len(generated_code)} bytes")
 
         # Show usage example
         console.print("\n🎯 [bold]Usage Example:[/bold]")
@@ -188,9 +210,7 @@ main_language = "en"
             pyproject_path.write_text(content)
             console.print(f"✅ Updated {pyproject_path} with slang configuration")
         else:
-            console.print(
-                f"⚠️  [yellow]{pyproject_path} already has slang configuration[/yellow]"
-            )
+            console.print(f"⚠️  [yellow]{pyproject_path} already has slang configuration[/yellow]")
     else:
         pyproject_content = f"""[project]
 name = "my-project"
@@ -296,9 +316,7 @@ def info(
             if not yaml_files:
                 console.print("   [yellow]No translation files found[/yellow]")
         else:
-            console.print(
-                f"\n⚠️  [yellow]Translations directory not found: {i18n_dir}[/yellow]"
-            )
+            console.print(f"\n⚠️  [yellow]Translations directory not found: {i18n_dir}[/yellow]")
 
         # Check for generated code
         output_file = project_path / config.output_dir / "translations.py"
@@ -308,13 +326,9 @@ def info(
             from datetime import datetime
 
             modified = datetime.fromtimestamp(stat.st_mtime)
-            console.print(
-                f"   Last generated: {modified.strftime('%Y-%m-%d %H:%M:%S')}"
-            )
+            console.print(f"   Last generated: {modified.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
-            console.print(
-                "\n📝 [bold]Generated Code:[/bold] [yellow]Not generated yet[/yellow]"
-            )
+            console.print("\n📝 [bold]Generated Code:[/bold] [yellow]Not generated yet[/yellow]")
             console.print("   Run [cyan]slang generate[/cyan] to create it")
 
     except Exception as e:

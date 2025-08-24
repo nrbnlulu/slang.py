@@ -37,9 +37,7 @@ complex_f_pattern = re.compile(r"^(\w+)\((.*)\)$")
 placeholder_pattern = re.compile(r"\{(\w+)\}")
 
 
-def parse_entry(
-    ctx: LocaleImpl, k: str, v: Any, parent: NameSpaceField | None = None
-) -> BaseField:
+def parse_entry(ctx: LocaleImpl, k: str, v: Any, parent: NameSpaceField | None = None) -> BaseField:
     if match := complex_f_pattern.fullmatch(k):
         return parse_complex(ctx, match, v, parent=parent)
     if isinstance(v, dict):
