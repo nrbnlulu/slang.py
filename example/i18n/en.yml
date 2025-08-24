@@ -1,0 +1,22 @@
+app:
+  title: My Awesome App
+  version: Version 1.0
+errors:
+  not_found: Item not found
+  server_error: Server error occurred
+  unauthorized: Access denied
+greeting: Hello, {name}!
+messages:
+  'count(count: int)': You have {count} messages
+  empty: No messages
+  new: New message from {sender}!
+user:
+  profile:
+    edit: Edit Profile
+    save: Save Changes
+    title: User Profile
+  settings:
+    language: Language
+    theme: Theme
+    title: Settings
+welcome: Welcome to our application!

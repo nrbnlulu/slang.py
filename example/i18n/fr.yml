@@ -1,0 +1,22 @@
+app:
+  title: Mon Application Géniale
+  version: Version 1.0
+errors:
+  not_found: Élément introuvable
+  server_error: Erreur serveur survenue
+  unauthorized: Accès refusé
+greeting: Bonjour, {name} !
+messages:
+  'count(count: int)': Vous avez {count} messages
+  empty: Aucun message
+  new: Nouveau message de {sender} !
+user:
+  profile:
+    edit: Modifier le Profil
+    save: Sauvegarder les Modifications
+    title: Profil Utilisateur
+  settings:
+    language: Langue
+    theme: Thème
+    title: Paramètres
+welcome: Bienvenue dans notre application !

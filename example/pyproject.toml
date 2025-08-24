@@ -1,7 +1,7 @@
 [project]
 name = "example"
 version = "0.1.0"
-description = "Add your description here"
+description = "Slang library usage example"
 readme = "README.md"
 requires-python = ">=3.12, <4.0"
 dependencies = []
@@ -13,3 +13,8 @@ dev = [
 
 [tool.uv.sources]
 slang = { workspace = true }
+
+[tool.slang]
+output_dir = "generated"
+translations_dir = "i18n"
+main_language = "en"

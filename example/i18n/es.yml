@@ -1,0 +1,22 @@
+app:
+  title: Mi Aplicación Increíble
+  version: Versión 1.0
+errors:
+  not_found: Elemento no encontrado
+  server_error: Ocurrió un error del servidor
+  unauthorized: Acceso denegado
+greeting: ¡Hola, {name}!
+messages:
+  'count(count: int)': Tienes {count} mensajes
+  empty: No hay mensajes
+  new: ¡Nuevo mensaje de {sender}!
+user:
+  profile:
+    edit: Editar Perfil
+    save: Guardar Cambios
+    title: Perfil de Usuario
+  settings:
+    language: Idioma
+    theme: Tema
+    title: Configuración
+welcome: ¡Bienvenido a nuestra aplicación!
