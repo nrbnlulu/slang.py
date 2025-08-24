@@ -1,7 +1,7 @@
 from minijinja import Environment
 from typing import Dict
 
-from slang.types_ import SlangCtx, LocaleImpl, NameSpaceField
+from slang.types_ import SlangCtx, LocaleImpl
 
 macros = """
 {% macro render_field_signature(field, return_stmt) -%}
@@ -114,21 +114,6 @@ def render_languages_enum(languages: list[str]) -> str:
     return tem_env.render_template("languages_enum", languages=enum_languages)
 
 
-def _get_agnostic_class_name(ns_field: NameSpaceField) -> str:
-    """Generate a language-agnostic class name for a namespace field."""
-    # Get the path without locale prefix (e.g., "user.profile" from "Locale_en.user.profile")
-    full_name = ns_field.full_name
-    # Remove everything up to the first dot to get just the namespace path
-    if "." in full_name:
-        # Split by first dot and take the rest
-        _, path = full_name.split(".", 1)
-        # Convert path to class name (e.g., "user.profile" -> "UserProfile")
-        return "".join(word.capitalize() for word in path.split("."))
-    else:
-        # Single word namespace, just capitalize it
-        return full_name.split("_")[-1].capitalize()
-
-
 def render_implementation(
     class_name: str, locale_impl: LocaleImpl, ref_locale: LocaleImpl
 ) -> str:
@@ -139,10 +124,22 @@ def render_implementation(
 
     # Generate all nested namespace implementation classes first
     # Map current locale fields to reference locale fields for protocol names
-    ref_ns_fields_map = {ns.full_name: ns for ns in ref_locale.all_namespace_fields}
+    # Use relative path (without locale prefix) for matching across languages
+    def get_relative_path(full_name: str) -> str:
+        # Convert "Locale_en.app.settings" to "app.settings"
+        if "." in full_name:
+            return ".".join(full_name.split(".")[1:])
+        else:
+            # Handle case where it's just "Locale_en" -> ""
+            return ""
+
+    ref_ns_fields_map = {
+        get_relative_path(ns.full_name): ns for ns in ref_locale.all_namespace_fields
+    }
 
     for ns_field in locale_impl.all_namespace_fields:
-        ref_ns_field = ref_ns_fields_map.get(ns_field.full_name)
+        relative_path = get_relative_path(ns_field.full_name)
+        ref_ns_field = ref_ns_fields_map.get(relative_path)
         if not ref_ns_field:
             continue  # Skip if not found in reference locale
         methods = []
@@ -173,16 +170,14 @@ def render_implementation(
                         ref_field = ref_field_candidate
                         break
                 if ref_field:
-                    agnostic_class_name = _get_agnostic_class_name(field)
                     method = f"""    @property
     def {field.name}(self) -> {ref_field.proto_name}:
-        return {agnostic_class_name}()"""
+        return {field.class_name}()"""
                     methods.append(method)
 
-        agnostic_ns_class_name = _get_agnostic_class_name(ns_field)
         ns_class = tem_env.render_template(
             "implementation",
-            class_name=agnostic_ns_class_name,
+            class_name=ns_field.class_name,
             methods=methods,
             base_class=ref_ns_field.proto_name,
         )
@@ -214,10 +209,9 @@ def render_implementation(
                 # Use reference locale protocol name
                 ref_field = ref_root_fields_map.get(field.name)
                 if ref_field and isinstance(ref_field, NameSpaceField):
-                    agnostic_class_name = _get_agnostic_class_name(field)
                     method = f"""    @property
     def {field.name}(self) -> {ref_field.proto_name}:
-        return {agnostic_class_name}()"""
+        return {field.class_name}()"""
                     methods.append(method)
 
     main_class = tem_env.render_template(

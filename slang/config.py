@@ -19,20 +19,21 @@ except ImportError:
 class SlangConfig:
     """Configuration for slang translation generation."""
 
-    output_dir: str = "slang/gen"
+    output_dir: Path
     translations_dir: str = "translations"
     main_language: str = "en"
 
     @classmethod
     def load_from_pyproject(cls, start_path: Path | None = None) -> SlangConfig:
         """Load configuration from nearest pyproject.toml file."""
+        default = cls(output_dir=Path("slang/gen"))
         if tomllib is None:
-            return cls()  # Fall back to defaults if toml library not available
+            return default
 
         pyproject_path = cls._find_pyproject_toml(start_path or Path.cwd())
 
         if pyproject_path is None:
-            return cls()  # No pyproject.toml found, use defaults
+            return default  # No pyproject.toml found, use defaults
 
         try:
             with open(pyproject_path, "rb") as f:

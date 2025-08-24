@@ -17,7 +17,7 @@ from .codegen import (
 )
 
 
-def generate_translations(project_path: Path | None = None) -> Result[str, str]:
+def generate_translations(project_path: Path | None = None) -> Result[Path, str]:
     """
     Generate type-safe translation interfaces from YAML files.
 
@@ -46,7 +46,10 @@ def generate_translations(project_path: Path | None = None) -> Result[str, str]:
     # Generate the code
     try:
         code = _generate_code(translations, config)
-        return Ok(code)
+        output_file = config.output_dir / "translations.py"
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        output_file.write_text(code)
+        return Ok(None)
     except Exception as e:
         return Err(f"Code generation failed: {e}")
 

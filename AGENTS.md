@@ -14,4 +14,4 @@ monorepo unless it explicitly says otherwise {usually will be named x_all})
 
 ## Definition of Done
 
-- A task is not done unless `task test` + `task lint` passed
+- A task is not done unless `task test` + `task lint` passed both in the root project and the example ptoject (no need for task test there)

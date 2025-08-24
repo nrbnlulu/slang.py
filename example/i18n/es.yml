@@ -1,22 +1,67 @@
+# Spanish translations for the example project
 app:
-  title: Mi Aplicación Increíble
-  version: Versión 1.0
-errors:
-  not_found: Elemento no encontrado
-  server_error: Ocurrió un error del servidor
-  unauthorized: Acceso denegado
-greeting: ¡Hola, {name}!
-messages:
-  'count(count: int)': Tienes {count} mensajes
-  empty: No hay mensajes
-  new: ¡Nuevo mensaje de {sender}!
+    name: "Ejemplo de Slang"
+    tagline: "Traducciones type-safe hechas fáciles"
+    version: "Versión 1.0.0"
+
+navigation:
+    home: "Inicio"
+    about: "Acerca de"
+    settings: "Configuración"
+    help: "Ayuda"
+
+welcome:
+    title: "¡Bienvenido a Slang!"
+    message: "Experimenta la internacionalización type-safe para Python"
+    get_started: "Comenzar"
+
 user:
-  profile:
-    edit: Editar Perfil
-    save: Guardar Cambios
-    title: Perfil de Usuario
-  settings:
-    language: Idioma
-    theme: Tema
-    title: Configuración
-welcome: ¡Bienvenido a nuestra aplicación!
+    profile:
+        title: "Perfil de Usuario"
+        edit: "Editar Perfil"
+        save: "Guardar Cambios"
+        cancel: "Cancelar"
+    preferences:
+        language: "Idioma"
+        theme: "Tema"
+        notifications: "Notificaciones"
+
+greetings:
+    hello: "¡Hola, {name}!"
+    welcome_back: "¡Bienvenido de vuelta, {name}!"
+    good_morning: "¡Buenos días, {name}!"
+
+messages:
+    "count(count: int)": "Tienes {count} mensajes"
+    "unread(unread: int)": "{unread} mensajes sin leer"
+    empty: "No hay mensajes"
+    loading: "Cargando mensajes..."
+
+notifications:
+    new_message: "Nuevo mensaje de {sender}"
+    friend_request: "{user} te envió una solicitud de amistad"
+    system_update: "El sistema se actualizará en {minutes} minutos"
+
+errors:
+    not_found: "Página no encontrada"
+    unauthorized: "Acceso denegado"
+    server_error: "Error interno del servidor"
+    network_error: "Falló la conexión de red"
+    validation_failed: "Por favor revisa tu entrada"
+
+actions:
+    save: "Guardar"
+    cancel: "Cancelar"
+    delete: "Eliminar"
+    edit: "Editar"
+    create: "Crear"
+    update: "Actualizar"
+    confirm: "Confirmar"
+    back: "Atrás"
+
+status:
+    online: "En línea"
+    offline: "Desconectado"
+    loading: "Cargando..."
+    success: "¡Éxito!"
+    error: "Ocurrió un error"
