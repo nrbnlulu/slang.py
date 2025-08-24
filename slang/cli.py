@@ -53,27 +53,23 @@ def generate(
 
             progress.update(task, description="Writing output file...")
 
-            generated_code = result.unwrap()
+            generated_to = result.unwrap()
 
-
-
-            # Write generated code
-            output_file.write_text(generated_code)
 
             progress.remove_task(task)
 
         console.print("✅ [green]Success![/green] Generated translations saved to:")
-        console.print(f"   📄 {output_file}")
+        console.print(f"   📄 {generated_to}")
 
         if verbose:
             console.print("\n📊 Generation Stats:")
-            lines = len(generated_code.split("\n"))
+            lines = len(generated_to.read_text().split("\n"))
             console.print(f"   • Lines of code: {lines}")
-            console.print(f"   • File size: {len(generated_code)} bytes")
+            console.print(f"   • File size: {len(generated_to.read_text())} bytes")
 
         # Show usage example
         console.print("\n🎯 [bold]Usage Example:[/bold]")
-        usage_code = """from generated.translations import Languages, get_translations
+        usage_code = """from <generate_dir>.translations import Languages, get_translations
 
 # Get translations for English
 t = get_translations(Languages.EN)

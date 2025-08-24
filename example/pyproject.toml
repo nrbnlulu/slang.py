@@ -13,7 +13,7 @@ dev = ["slang"]
 slang = { workspace = true }
 
 [tool.slang]
-output_dir = "src/__tr__"
+output_dir = "src/app/__tr__"
 translations_dir = "i18n"
 main_language = "en"
 

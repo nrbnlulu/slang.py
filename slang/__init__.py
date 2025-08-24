@@ -47,9 +47,13 @@ def generate_translations(project_path: Path | None = None) -> Result[Path, str]
     try:
         code = _generate_code(translations, config)
         output_file = config.output_dir / "translations.py"
+        init_py = output_file.parent / "__init__.py"
+        if not init_py.exists():
+            init_py.touch()
+            
         output_file.parent.mkdir(parents=True, exist_ok=True)
         output_file.write_text(code)
-        return Ok(None)
+        return Ok(output_file)
     except Exception as e:
         return Err(f"Code generation failed: {e}")
 

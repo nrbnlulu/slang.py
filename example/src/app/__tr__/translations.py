@@ -148,7 +148,7 @@ class Locale_en_notificationsProto(Protocol):
     def friend_request(self,user: str) -> str:
         raise NotImplementedError()
 
-    def system_update(self,minutes: str) -> str:
+    def system_update(self,minutes: int) -> str:
         raise NotImplementedError()
 
     
@@ -441,7 +441,7 @@ class Locale_en_notifications(Locale_en_notificationsProto):
     def friend_request(self, user: str) -> str:
         return '{user} sent you a friend request'.format(user=user)
 
-    def system_update(self, minutes: str) -> str:
+    def system_update(self, minutes: int) -> str:
         return 'System will update in {minutes} minutes'.format(minutes=minutes)
 
 

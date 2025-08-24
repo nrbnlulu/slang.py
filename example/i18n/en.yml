@@ -40,7 +40,7 @@ messages:
 notifications:
     new_message: "New message from {sender}"
     friend_request: "{user} sent you a friend request"
-    system_update: "System will update in {minutes} minutes"
+    "system_update(minutes: int)": "System will update in {minutes} minutes"
 
 errors:
     not_found: "Page not found"

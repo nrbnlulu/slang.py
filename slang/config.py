@@ -20,13 +20,14 @@ class SlangConfig:
     """Configuration for slang translation generation."""
 
     output_dir: Path
-    translations_dir: str = "translations"
+    translations_dir: Path 
+    """i.e `./i18n`"""
     main_language: str = "en"
 
     @classmethod
     def load_from_pyproject(cls, start_path: Path | None = None) -> SlangConfig:
         """Load configuration from nearest pyproject.toml file."""
-        default = cls(output_dir=Path("slang/gen"))
+        default = cls(output_dir=Path("slang/gen"), translations_dir=Path("i18n"))
         if tomllib is None:
             return default
 
@@ -35,19 +36,16 @@ class SlangConfig:
         if pyproject_path is None:
             return default  # No pyproject.toml found, use defaults
 
-        try:
-            with open(pyproject_path, "rb") as f:
-                data = tomllib.load(f)
+        with open(pyproject_path, "rb") as f:
+            data = tomllib.load(f)
 
-            slang_config = data.get("tool", {}).get("slang", {})
-            return cls(
-                output_dir=slang_config.get("output_dir", "slang/gen"),
-                translations_dir=slang_config.get("translations_dir", "translations"),
-                main_language=slang_config.get("main_language", "en"),
-            )
-        except Exception:
-            # If we can't read the config, fall back to defaults rather than failing
-            return cls()
+        slang_config = data.get("tool", {}).get("slang", {})
+        return cls(
+            output_dir=Path(slang_config.get("output_dir", "slang/gen")),
+            translations_dir=Path(slang_config.get("translations_dir", "i18n")),
+            main_language=slang_config.get("main_language", "en"),
+        )
+
 
     @staticmethod
     def _find_pyproject_toml(start_path: Path) -> Path | None:
