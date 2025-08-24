@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Optional
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.syntax import Syntax
-
+from pathlib import Path
 from . import generate_translations
 
 app = typer.Typer(
@@ -23,14 +21,14 @@ console = Console()
 
 @app.command()
 def generate(
-    project_path: Optional[Path] = typer.Argument(
+    project_path: Path | None = typer.Argument(
         None,
         help="Path to project root directory (defaults to current directory)",
         exists=True,
         file_okay=False,
         dir_okay=True,
     ),
-    output: Optional[Path] = typer.Option(
+    output: Path | None = typer.Option(
         None,
         "--output",
         "-o",
@@ -109,7 +107,7 @@ print(t.welcome)  # Type-safe access with autocomplete!"""
 
 @app.command()
 def init(
-    project_path: Optional[Path] = typer.Argument(
+    project_path: Path | None = typer.Argument(
         None,
         help="Path to initialize slang project (defaults to current directory)",
     ),
@@ -238,7 +236,7 @@ dependencies = []
 
 @app.command()
 def validate(
-    project_path: Optional[Path] = typer.Argument(
+    project_path: Path | None = typer.Argument(
         None,
         help="Path to project root directory (defaults to current directory)",
         exists=True,
@@ -279,7 +277,7 @@ def validate(
 
 @app.command()
 def info(
-    project_path: Optional[Path] = typer.Argument(
+    project_path: Path | None = typer.Argument(
         None,
         help="Path to project root directory (defaults to current directory)",
         exists=True,
