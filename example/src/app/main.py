@@ -79,9 +79,15 @@ def demo_nested_namespaces():
 
     # Navigation section
     print("Navigation:")
-    print(f"  English: {t_en.navigation.home} | {t_en.navigation.about} | {t_en.navigation.settings}")
-    print(f"  Spanish: {t_es.navigation.home} | {t_es.navigation.about} | {t_es.navigation.settings}")
-    print(f"  French: {t_fr.navigation.home} | {t_fr.navigation.about} | {t_fr.navigation.settings}")
+    print(
+        f"  English: {t_en.navigation.home} | {t_en.navigation.about} | {t_en.navigation.settings}"
+    )
+    print(
+        f"  Spanish: {t_es.navigation.home} | {t_es.navigation.about} | {t_es.navigation.settings}"
+    )
+    print(
+        f"  French: {t_fr.navigation.home} | {t_fr.navigation.about} | {t_fr.navigation.settings}"
+    )
     print()
 
 

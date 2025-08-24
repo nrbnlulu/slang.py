@@ -5,7 +5,6 @@ from enum import Enum
 from typing import Protocol
 
 
-
 class Languages(Enum):
     """Available languages for translations."""
 
@@ -16,10 +15,7 @@ class Languages(Enum):
     FR = "fr"
 
 
-
-
 class Locale_en_appProto(Protocol):
-
     @property
     def name(self) -> str:
         raise NotImplementedError()
@@ -32,9 +28,8 @@ class Locale_en_appProto(Protocol):
     def version(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_navigationProto(Protocol):
 
+class Locale_en_navigationProto(Protocol):
     @property
     def home(self) -> str:
         raise NotImplementedError()
@@ -51,9 +46,8 @@ class Locale_en_navigationProto(Protocol):
     def help(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_welcomeProto(Protocol):
 
+class Locale_en_welcomeProto(Protocol):
     @property
     def title(self) -> str:
         raise NotImplementedError()
@@ -66,9 +60,8 @@ class Locale_en_welcomeProto(Protocol):
     def get_started(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_user_profileProto(Protocol):
 
+class Locale_en_user_profileProto(Protocol):
     @property
     def title(self) -> str:
         raise NotImplementedError()
@@ -85,9 +78,8 @@ class Locale_en_user_profileProto(Protocol):
     def cancel(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_user_preferencesProto(Protocol):
 
+class Locale_en_user_preferencesProto(Protocol):
     @property
     def language(self) -> str:
         raise NotImplementedError()
@@ -100,38 +92,33 @@ class Locale_en_user_preferencesProto(Protocol):
     def notifications(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_userProto(Protocol):
 
-    
+class Locale_en_userProto(Protocol):
     @property
     def profile(self) -> Locale_en_user_profileProto:
         raise NotImplementedError()
 
-    
     @property
     def preferences(self) -> Locale_en_user_preferencesProto:
         raise NotImplementedError()
 
-    
+
 class Locale_en_greetingsProto(Protocol):
-
-    def hello(self,name: str) -> str:
+    def hello(self, name: str) -> str:
         raise NotImplementedError()
 
-    def welcome_back(self,name: str) -> str:
+    def welcome_back(self, name: str) -> str:
         raise NotImplementedError()
 
-    def good_morning(self,name: str) -> str:
+    def good_morning(self, name: str) -> str:
         raise NotImplementedError()
 
-    
+
 class Locale_en_messagesProto(Protocol):
-
-    def count(self,count: int) -> str:
+    def count(self, count: int) -> str:
         raise NotImplementedError()
 
-    def unread(self,unread: int) -> str:
+    def unread(self, unread: int) -> str:
         raise NotImplementedError()
 
     @property
@@ -142,21 +129,19 @@ class Locale_en_messagesProto(Protocol):
     def loading(self) -> str:
         raise NotImplementedError()
 
-    
+
 class Locale_en_notificationsProto(Protocol):
-
-    def new_message(self,sender: str) -> str:
+    def new_message(self, sender: str) -> str:
         raise NotImplementedError()
 
-    def friend_request(self,user: str) -> str:
+    def friend_request(self, user: str) -> str:
         raise NotImplementedError()
 
-    def system_update(self,minutes: int) -> str:
+    def system_update(self, minutes: int) -> str:
         raise NotImplementedError()
 
-    
+
 class Locale_en_errorsProto(Protocol):
-
     @property
     def not_found(self) -> str:
         raise NotImplementedError()
@@ -177,9 +162,8 @@ class Locale_en_errorsProto(Protocol):
     def validation_failed(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_actionsProto(Protocol):
 
+class Locale_en_actionsProto(Protocol):
     @property
     def save(self) -> str:
         raise NotImplementedError()
@@ -212,9 +196,8 @@ class Locale_en_actionsProto(Protocol):
     def back(self) -> str:
         raise NotImplementedError()
 
-    
-class Locale_en_statusProto(Protocol):
 
+class Locale_en_statusProto(Protocol):
     @property
     def online(self) -> str:
         raise NotImplementedError()
@@ -235,160 +218,128 @@ class Locale_en_statusProto(Protocol):
     def error(self) -> str:
         raise NotImplementedError()
 
-    
+
 class TranslationsProto(Protocol):
-    
     @property
     def app(self) -> Locale_en_appProto:
         raise NotImplementedError()
 
-    
     @property
     def navigation(self) -> Locale_en_navigationProto:
         raise NotImplementedError()
 
-    
     @property
     def welcome(self) -> Locale_en_welcomeProto:
         raise NotImplementedError()
 
-    
     @property
     def user(self) -> Locale_en_userProto:
         raise NotImplementedError()
 
-    
     @property
     def greetings(self) -> Locale_en_greetingsProto:
         raise NotImplementedError()
 
-    
     @property
     def messages(self) -> Locale_en_messagesProto:
         raise NotImplementedError()
 
-    
     @property
     def notifications(self) -> Locale_en_notificationsProto:
         raise NotImplementedError()
 
-    
     @property
     def errors(self) -> Locale_en_errorsProto:
         raise NotImplementedError()
 
-    
     @property
     def actions(self) -> Locale_en_actionsProto:
         raise NotImplementedError()
 
-    
     @property
     def status(self) -> Locale_en_statusProto:
         raise NotImplementedError()
 
 
 class Locale_en_app(Locale_en_appProto):
-
-
     @property
     def name(self) -> str:
-        return 'Slang Example'
+        return "Slang Example"
 
     @property
     def tagline(self) -> str:
-        return 'Type-safe translations made easy'
+        return "Type-safe translations made easy"
 
     @property
     def version(self) -> str:
-        return 'Version 1.0.0'
-
-
+        return "Version 1.0.0"
 
 
 class Locale_en_navigation(Locale_en_navigationProto):
-
-
     @property
     def home(self) -> str:
-        return 'Home'
+        return "Home"
 
     @property
     def about(self) -> str:
-        return 'About'
+        return "About"
 
     @property
     def settings(self) -> str:
-        return 'Settings'
+        return "Settings"
 
     @property
     def help(self) -> str:
-        return 'Help'
-
-
+        return "Help"
 
 
 class Locale_en_welcome(Locale_en_welcomeProto):
-
-
     @property
     def title(self) -> str:
-        return 'Welcome to Slang!'
+        return "Welcome to Slang!"
 
     @property
     def message(self) -> str:
-        return 'Experience type-safe internationalization for Python'
+        return "Experience type-safe internationalization for Python"
 
     @property
     def get_started(self) -> str:
-        return 'Get Started'
-
-
+        return "Get Started"
 
 
 class Locale_en_user_profile(Locale_en_user_profileProto):
-
-
     @property
     def title(self) -> str:
-        return 'User Profile'
+        return "User Profile"
 
     @property
     def edit(self) -> str:
-        return 'Edit Profile'
+        return "Edit Profile"
 
     @property
     def save(self) -> str:
-        return 'Save Changes'
+        return "Save Changes"
 
     @property
     def cancel(self) -> str:
-        return 'Cancel'
-
-
+        return "Cancel"
 
 
 class Locale_en_user_preferences(Locale_en_user_preferencesProto):
-
-
     @property
     def language(self) -> str:
-        return 'Language'
+        return "Language"
 
     @property
     def theme(self) -> str:
-        return 'Theme'
+        return "Theme"
 
     @property
     def notifications(self) -> str:
-        return 'Notifications'
-
-
+        return "Notifications"
 
 
 class Locale_en_user(Locale_en_userProto):
-
-
     @property
     def profile(self) -> Locale_en_user_profileProto:
         return Locale_en_user_profile()
@@ -398,151 +349,123 @@ class Locale_en_user(Locale_en_userProto):
         return Locale_en_user_preferences()
 
 
-
-
 class Locale_en_greetings(Locale_en_greetingsProto):
-
-
     def hello(self, name: str) -> str:
-        return 'Hello, {name}!'.format(name=name)
+        return "Hello, {name}!".format(name=name)
 
     def welcome_back(self, name: str) -> str:
-        return 'Welcome back, {name}!'.format(name=name)
+        return "Welcome back, {name}!".format(name=name)
 
     def good_morning(self, name: str) -> str:
-        return 'Good morning, {name}!'.format(name=name)
-
-
+        return "Good morning, {name}!".format(name=name)
 
 
 class Locale_en_messages(Locale_en_messagesProto):
-
-
     def count(self, count: int) -> str:
-        return 'You have {count} messages'.format(count=count)
+        return "You have {count} messages".format(count=count)
 
     def unread(self, unread: int) -> str:
-        return '{unread} unread messages'.format(unread=unread)
+        return "{unread} unread messages".format(unread=unread)
 
     @property
     def empty(self) -> str:
-        return 'No messages'
+        return "No messages"
 
     @property
     def loading(self) -> str:
-        return 'Loading messages...'
-
-
+        return "Loading messages..."
 
 
 class Locale_en_notifications(Locale_en_notificationsProto):
-
-
     def new_message(self, sender: str) -> str:
-        return 'New message from {sender}'.format(sender=sender)
+        return "New message from {sender}".format(sender=sender)
 
     def friend_request(self, user: str) -> str:
-        return '{user} sent you a friend request'.format(user=user)
+        return "{user} sent you a friend request".format(user=user)
 
     def system_update(self, minutes: int) -> str:
-        return 'System will update in {minutes} minutes'.format(minutes=minutes)
-
-
+        return "System will update in {minutes} minutes".format(minutes=minutes)
 
 
 class Locale_en_errors(Locale_en_errorsProto):
-
-
     @property
     def not_found(self) -> str:
-        return 'Page not found'
+        return "Page not found"
 
     @property
     def unauthorized(self) -> str:
-        return 'Access denied'
+        return "Access denied"
 
     @property
     def server_error(self) -> str:
-        return 'Internal server error'
+        return "Internal server error"
 
     @property
     def network_error(self) -> str:
-        return 'Network connection failed'
+        return "Network connection failed"
 
     @property
     def validation_failed(self) -> str:
-        return 'Please check your input'
-
-
+        return "Please check your input"
 
 
 class Locale_en_actions(Locale_en_actionsProto):
-
-
     @property
     def save(self) -> str:
-        return 'Save'
+        return "Save"
 
     @property
     def cancel(self) -> str:
-        return 'Cancel'
+        return "Cancel"
 
     @property
     def delete(self) -> str:
-        return 'Delete'
+        return "Delete"
 
     @property
     def edit(self) -> str:
-        return 'Edit'
+        return "Edit"
 
     @property
     def create(self) -> str:
-        return 'Create'
+        return "Create"
 
     @property
     def update(self) -> str:
-        return 'Update'
+        return "Update"
 
     @property
     def confirm(self) -> str:
-        return 'Confirm'
+        return "Confirm"
 
     @property
     def back(self) -> str:
-        return 'Back'
-
-
+        return "Back"
 
 
 class Locale_en_status(Locale_en_statusProto):
-
-
     @property
     def online(self) -> str:
-        return 'Online'
+        return "Online"
 
     @property
     def offline(self) -> str:
-        return 'Offline'
+        return "Offline"
 
     @property
     def loading(self) -> str:
-        return 'Loading...'
+        return "Loading..."
 
     @property
     def success(self) -> str:
-        return 'Success!'
+        return "Success!"
 
     @property
     def error(self) -> str:
-        return 'Error occurred'
-
-
+        return "Error occurred"
 
 
 class Translations_en(TranslationsProto):
-
-
     @property
     def app(self) -> Locale_en_appProto:
         return Locale_en_app()
@@ -584,109 +507,85 @@ class Translations_en(TranslationsProto):
         return Locale_en_status()
 
 
-
-
 class Locale_es_app(Locale_en_appProto):
-
-
     @property
     def name(self) -> str:
-        return 'Ejemplo de Slang'
+        return "Ejemplo de Slang"
 
     @property
     def tagline(self) -> str:
-        return 'Traducciones type-safe hechas fáciles'
+        return "Traducciones type-safe hechas fáciles"
 
     @property
     def version(self) -> str:
-        return 'Versión 1.0.0'
-
-
+        return "Versión 1.0.0"
 
 
 class Locale_es_navigation(Locale_en_navigationProto):
-
-
     @property
     def home(self) -> str:
-        return 'Inicio'
+        return "Inicio"
 
     @property
     def about(self) -> str:
-        return 'Acerca de'
+        return "Acerca de"
 
     @property
     def settings(self) -> str:
-        return 'Configuración'
+        return "Configuración"
 
     @property
     def help(self) -> str:
-        return 'Ayuda'
-
-
+        return "Ayuda"
 
 
 class Locale_es_welcome(Locale_en_welcomeProto):
-
-
     @property
     def title(self) -> str:
-        return '¡Bienvenido a Slang!'
+        return "¡Bienvenido a Slang!"
 
     @property
     def message(self) -> str:
-        return 'Experimenta la internacionalización type-safe para Python'
+        return "Experimenta la internacionalización type-safe para Python"
 
     @property
     def get_started(self) -> str:
-        return 'Comenzar'
-
-
+        return "Comenzar"
 
 
 class Locale_es_user_profile(Locale_en_user_profileProto):
-
-
     @property
     def title(self) -> str:
-        return 'Perfil de Usuario'
+        return "Perfil de Usuario"
 
     @property
     def edit(self) -> str:
-        return 'Editar Perfil'
+        return "Editar Perfil"
 
     @property
     def save(self) -> str:
-        return 'Guardar Cambios'
+        return "Guardar Cambios"
 
     @property
     def cancel(self) -> str:
-        return 'Cancelar'
-
-
+        return "Cancelar"
 
 
 class Locale_es_user_preferences(Locale_en_user_preferencesProto):
-
-
     @property
     def language(self) -> str:
-        return 'Idioma'
+        return "Idioma"
 
     @property
     def theme(self) -> str:
-        return 'Tema'
+        return "Tema"
 
     @property
     def notifications(self) -> str:
-        return 'Notificaciones'
-
-
+        return "Notificaciones"
 
 
 class Locale_es_user(Locale_en_userProto):
-
-
     @property
     def profile(self) -> Locale_en_user_profileProto:
         return Locale_es_user_profile()
@@ -696,151 +595,123 @@ class Locale_es_user(Locale_en_userProto):
         return Locale_es_user_preferences()
 
 
-
-
 class Locale_es_greetings(Locale_en_greetingsProto):
-
-
     def hello(self, name: str) -> str:
-        return '¡Hola, {name}!'.format(name=name)
+        return "¡Hola, {name}!".format(name=name)
 
     def welcome_back(self, name: str) -> str:
-        return '¡Bienvenido de vuelta, {name}!'.format(name=name)
+        return "¡Bienvenido de vuelta, {name}!".format(name=name)
 
     def good_morning(self, name: str) -> str:
-        return '¡Buenos días, {name}!'.format(name=name)
-
-
+        return "¡Buenos días, {name}!".format(name=name)
 
 
 class Locale_es_messages(Locale_en_messagesProto):
-
-
     def count(self, count: int) -> str:
-        return 'Tienes {count} mensajes'.format(count=count)
+        return "Tienes {count} mensajes".format(count=count)
 
     def unread(self, unread: int) -> str:
-        return '{unread} mensajes sin leer'.format(unread=unread)
+        return "{unread} mensajes sin leer".format(unread=unread)
 
     @property
     def empty(self) -> str:
-        return 'No hay mensajes'
+        return "No hay mensajes"
 
     @property
     def loading(self) -> str:
-        return 'Cargando mensajes...'
-
-
+        return "Cargando mensajes..."
 
 
 class Locale_es_notifications(Locale_en_notificationsProto):
-
-
     def new_message(self, sender: str) -> str:
-        return 'Nuevo mensaje de {sender}'.format(sender=sender)
+        return "Nuevo mensaje de {sender}".format(sender=sender)
 
     def friend_request(self, user: str) -> str:
-        return '{user} te envió una solicitud de amistad'.format(user=user)
+        return "{user} te envió una solicitud de amistad".format(user=user)
 
     def system_update(self, minutes: int) -> str:
-        return 'El sistema se actualizará en {minutes} minutos'.format(minutes=minutes)
-
-
+        return "El sistema se actualizará en {minutes} minutos".format(minutes=minutes)
 
 
 class Locale_es_errors(Locale_en_errorsProto):
-
-
     @property
     def not_found(self) -> str:
-        return 'Página no encontrada'
+        return "Página no encontrada"
 
     @property
     def unauthorized(self) -> str:
-        return 'Acceso denegado'
+        return "Acceso denegado"
 
     @property
     def server_error(self) -> str:
-        return 'Error interno del servidor'
+        return "Error interno del servidor"
 
     @property
     def network_error(self) -> str:
-        return 'Falló la conexión de red'
+        return "Falló la conexión de red"
 
     @property
     def validation_failed(self) -> str:
-        return 'Por favor revisa tu entrada'
-
-
+        return "Por favor revisa tu entrada"
 
 
 class Locale_es_actions(Locale_en_actionsProto):
-
-
     @property
     def save(self) -> str:
-        return 'Guardar'
+        return "Guardar"
 
     @property
     def cancel(self) -> str:
-        return 'Cancelar'
+        return "Cancelar"
 
     @property
     def delete(self) -> str:
-        return 'Eliminar'
+        return "Eliminar"
 
     @property
     def edit(self) -> str:
-        return 'Editar'
+        return "Editar"
 
     @property
     def create(self) -> str:
-        return 'Crear'
+        return "Crear"
 
     @property
     def update(self) -> str:
-        return 'Actualizar'
+        return "Actualizar"
 
     @property
     def confirm(self) -> str:
-        return 'Confirmar'
+        return "Confirmar"
 
     @property
     def back(self) -> str:
-        return 'Atrás'
-
-
+        return "Atrás"
 
 
 class Locale_es_status(Locale_en_statusProto):
-
-
     @property
     def online(self) -> str:
-        return 'En línea'
+        return "En línea"
 
     @property
     def offline(self) -> str:
-        return 'Desconectado'
+        return "Desconectado"
 
     @property
     def loading(self) -> str:
-        return 'Cargando...'
+        return "Cargando..."
 
     @property
     def success(self) -> str:
-        return '¡Éxito!'
+        return "¡Éxito!"
 
     @property
     def error(self) -> str:
-        return 'Ocurrió un error'
-
-
+        return "Ocurrió un error"
 
 
 class Translations_es(TranslationsProto):
-
-
     @property
     def app(self) -> Locale_en_appProto:
         return Locale_es_app()
@@ -882,54 +753,42 @@ class Translations_es(TranslationsProto):
         return Locale_es_status()
 
 
-
-
 class Locale_fr_app(Locale_en_appProto):
-
-
     @property
     def name(self) -> str:
-        return 'Exemple de Slang'
+        return "Exemple de Slang"
 
     @property
     def tagline(self) -> str:
-        return 'Traductions type-safe rendues faciles'
+        return "Traductions type-safe rendues faciles"
 
     @property
     def version(self) -> str:
-        return 'Version 1.0.0'
-
-
+        return "Version 1.0.0"
 
 
 class Locale_fr_navigation(Locale_en_navigationProto):
-
-
     @property
     def home(self) -> str:
-        return 'Accueil'
+        return "Accueil"
 
     @property
     def about(self) -> str:
-        return 'À propos'
+        return "À propos"
 
     @property
     def settings(self) -> str:
-        return 'Paramètres'
+        return "Paramètres"
 
     @property
     def help(self) -> str:
-        return 'Aide'
-
-
+        return "Aide"
 
 
 class Locale_fr_welcome(Locale_en_welcomeProto):
-
-
     @property
     def title(self) -> str:
-        return 'Bienvenue dans Slang !'
+        return "Bienvenue dans Slang !"
 
     @property
     def message(self) -> str:
@@ -937,54 +796,42 @@ class Locale_fr_welcome(Locale_en_welcomeProto):
 
     @property
     def get_started(self) -> str:
-        return 'Commencer'
-
-
+        return "Commencer"
 
 
 class Locale_fr_user_profile(Locale_en_user_profileProto):
-
-
     @property
     def title(self) -> str:
-        return 'Profil Utilisateur'
+        return "Profil Utilisateur"
 
     @property
     def edit(self) -> str:
-        return 'Modifier le Profil'
+        return "Modifier le Profil"
 
     @property
     def save(self) -> str:
-        return 'Enregistrer les Modifications'
+        return "Enregistrer les Modifications"
 
     @property
     def cancel(self) -> str:
-        return 'Annuler'
-
-
+        return "Annuler"
 
 
 class Locale_fr_user_preferences(Locale_en_user_preferencesProto):
-
-
     @property
     def language(self) -> str:
-        return 'Langue'
+        return "Langue"
 
     @property
     def theme(self) -> str:
-        return 'Thème'
+        return "Thème"
 
     @property
     def notifications(self) -> str:
-        return 'Notifications'
-
-
+        return "Notifications"
 
 
 class Locale_fr_user(Locale_en_userProto):
-
-
     @property
     def profile(self) -> Locale_en_user_profileProto:
         return Locale_fr_user_profile()
@@ -994,151 +841,123 @@ class Locale_fr_user(Locale_en_userProto):
         return Locale_fr_user_preferences()
 
 
-
-
 class Locale_fr_greetings(Locale_en_greetingsProto):
-
-
     def hello(self, name: str) -> str:
-        return 'Bonjour, {name} !'.format(name=name)
+        return "Bonjour, {name} !".format(name=name)
 
     def welcome_back(self, name: str) -> str:
-        return 'Bon retour, {name} !'.format(name=name)
+        return "Bon retour, {name} !".format(name=name)
 
     def good_morning(self, name: str) -> str:
-        return 'Bonjour, {name} !'.format(name=name)
-
-
+        return "Bonjour, {name} !".format(name=name)
 
 
 class Locale_fr_messages(Locale_en_messagesProto):
-
-
     def count(self, count: int) -> str:
-        return 'Vous avez {count} messages'.format(count=count)
+        return "Vous avez {count} messages".format(count=count)
 
     def unread(self, unread: int) -> str:
-        return '{unread} messages non lus'.format(unread=unread)
+        return "{unread} messages non lus".format(unread=unread)
 
     @property
     def empty(self) -> str:
-        return 'Aucun message'
+        return "Aucun message"
 
     @property
     def loading(self) -> str:
-        return 'Chargement des messages...'
-
-
+        return "Chargement des messages..."
 
 
 class Locale_fr_notifications(Locale_en_notificationsProto):
-
-
     def new_message(self, sender: str) -> str:
-        return 'Nouveau message de {sender}'.format(sender=sender)
+        return "Nouveau message de {sender}".format(sender=sender)
 
     def friend_request(self, user: str) -> str:
         return "{user} vous a envoyé une demande d'ami".format(user=user)
 
     def system_update(self, minutes: int) -> str:
-        return 'Le système se mettra à jour dans {minutes} minutes'.format(minutes=minutes)
-
-
+        return "Le système se mettra à jour dans {minutes} minutes".format(minutes=minutes)
 
 
 class Locale_fr_errors(Locale_en_errorsProto):
-
-
     @property
     def not_found(self) -> str:
-        return 'Page non trouvée'
+        return "Page non trouvée"
 
     @property
     def unauthorized(self) -> str:
-        return 'Accès refusé'
+        return "Accès refusé"
 
     @property
     def server_error(self) -> str:
-        return 'Erreur interne du serveur'
+        return "Erreur interne du serveur"
 
     @property
     def network_error(self) -> str:
-        return 'Échec de la connexion réseau'
+        return "Échec de la connexion réseau"
 
     @property
     def validation_failed(self) -> str:
-        return 'Veuillez vérifier votre saisie'
-
-
+        return "Veuillez vérifier votre saisie"
 
 
 class Locale_fr_actions(Locale_en_actionsProto):
-
-
     @property
     def save(self) -> str:
-        return 'Enregistrer'
+        return "Enregistrer"
 
     @property
     def cancel(self) -> str:
-        return 'Annuler'
+        return "Annuler"
 
     @property
     def delete(self) -> str:
-        return 'Supprimer'
+        return "Supprimer"
 
     @property
     def edit(self) -> str:
-        return 'Modifier'
+        return "Modifier"
 
     @property
     def create(self) -> str:
-        return 'Créer'
+        return "Créer"
 
     @property
     def update(self) -> str:
-        return 'Mettre à jour'
+        return "Mettre à jour"
 
     @property
     def confirm(self) -> str:
-        return 'Confirmer'
+        return "Confirmer"
 
     @property
     def back(self) -> str:
-        return 'Retour'
-
-
+        return "Retour"
 
 
 class Locale_fr_status(Locale_en_statusProto):
-
-
     @property
     def online(self) -> str:
-        return 'En ligne'
+        return "En ligne"
 
     @property
     def offline(self) -> str:
-        return 'Hors ligne'
+        return "Hors ligne"
 
     @property
     def loading(self) -> str:
-        return 'Chargement...'
+        return "Chargement..."
 
     @property
     def success(self) -> str:
-        return 'Succès !'
+        return "Succès !"
 
     @property
     def error(self) -> str:
         return "Une erreur s'est produite"
 
 
-
-
 class Translations_fr(TranslationsProto):
-
-
     @property
     def app(self) -> Locale_en_appProto:
         return Locale_fr_app()
@@ -1180,8 +999,6 @@ class Translations_fr(TranslationsProto):
         return Locale_fr_status()
 
 
-
-
 def get_translations(language: Languages) -> TranslationsProto:
     """Get translations for the specified language.
 
@@ -1192,7 +1009,6 @@ def get_translations(language: Languages) -> TranslationsProto:
         Translations instance for the specified language
     """
     match language:
-
         case Languages.EN:
             return Translations_en()
 
@@ -1201,6 +1017,5 @@ def get_translations(language: Languages) -> TranslationsProto:
 
         case Languages.FR:
             return Translations_fr()
-
 
     raise ValueError(f"Unsupported language: {language}")
