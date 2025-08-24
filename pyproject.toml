@@ -3,10 +3,10 @@ name = "slang"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = "<3.12, >=3.9"
+requires-python = "<4.0, >=3.12"
 dependencies = [
     "minijinja>=2.2.0",
-    "result>=0.17.0",
+    "result",
 ]
 
 
@@ -28,3 +28,9 @@ dev-dependencies = [
     "ruff>=0.6.7",
     "syrupy>=4.7.1",
 ]
+
+[tool.uv.sources]
+result = { git = "https://github.com/nrbnlulu/result.git" }
+
+[tool.uv.workspace]
+members = ["example"]

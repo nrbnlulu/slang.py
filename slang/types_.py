@@ -62,7 +62,7 @@ class NameSpaceField(BaseField):
     @property
     def is_namespace(self) -> bool:
         return True
-    
+
     def get_child_namespace_fields(self) -> list[NameSpaceField]:
         ret: list[NameSpaceField] = []
         for field in self.fields:
@@ -85,7 +85,7 @@ class NameSpaceField(BaseField):
             if field.name == name:
                 return field
         raise ValueError(f"Field {name} is not defined in {self.full_name}.")
-    
+
     def compatible(self, other: BaseField, current_locale: str) -> Result[None, str]:
         """Ensure that both of the namespaces has the same fields."""
         if isinstance(other, NameSpaceField):
@@ -163,6 +163,7 @@ class ArgumentType(enum.Enum):
             return "bool"
         raise ValueError(f"Unknown argument kind: {self}")
 
+
 @dataclass(slots=True, kw_only=True)
 class ArgumentDefinition:
     name: str
@@ -231,12 +232,10 @@ class LocaleImpl:
                 ret.extend(field.get_child_namespace_fields())
                 ret.append(field)
         return ret
-                
-    
+
 
 @dataclass(slots=True, kw_only=True)
 class SlangCtx:
     ref_locale: LocaleImpl
     """Reference locale, all locales should match this one."""
     locales: list[LocaleImpl] = dataclasses.field(default_factory=list)
- 

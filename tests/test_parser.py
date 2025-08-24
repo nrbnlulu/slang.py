@@ -1,5 +1,11 @@
 from slang.parse import parse
-from slang.types_ import ArgumentDefinition, ArgumentType, ComplexField, NameSpaceField, SimpleField
+from slang.types_ import (
+    ArgumentDefinition,
+    ArgumentType,
+    ComplexField,
+    NameSpaceField,
+    SimpleField,
+)
 
 
 def test_simple_field() -> None:
@@ -27,6 +33,7 @@ def test_complex_field_all_field_types() -> None:
     assert field.arguments[3] == ArgumentDefinition(
         name="arg4", type=ArgumentType.FLOAT
     )
+
 
 def test_namespace_field() -> None:
     example = {

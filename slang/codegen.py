@@ -2,8 +2,7 @@ from minijinja import Environment
 
 from slang.types_ import SlangCtx, LocaleImpl
 
-macros = \
-"""
+macros = """
 {% macro render_field_signature(field, return_stmt) -%}
 {% if field.is_simple -%}
     @property
@@ -44,8 +43,12 @@ class TranslationsProto(Protocol):
     {% endfor %}
 
 """
+
+
 def error_callback(x):
     raise ValueError(x)
+
+
 tem_env = Environment(templates={"translations_proto": base_tr_proto, "macros": macros})
 
 
