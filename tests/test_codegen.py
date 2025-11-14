@@ -1,10 +1,6 @@
-from pathlib import Path
 from slang.codegen import render_translations_proto
 from slang.parse import parse
-from slang.types_ import SimpleField, SlangCtx
-
-def write_to_tmp(content) -> None:
-    (Path(__file__).parent / "tmp.py").write_text(content)
+from slang.types_ import SlangCtx
 
 
 def test_simple_field_proto(snapshot) -> None:
@@ -13,7 +9,7 @@ def test_simple_field_proto(snapshot) -> None:
     }
     locale = parse(example, "heb").unwrap()
     assert snapshot == render_translations_proto(SlangCtx(ref_locale=locale))
-    
+
 
 def test_complex_field_proto(snapshot) -> None:
     example = {
@@ -31,5 +27,4 @@ def test_namespace_field_proto(snapshot) -> None:
         },
     }
     locale = parse(example, "heb").unwrap()
-    write_to_tmp(render_translations_proto(SlangCtx(ref_locale=locale)))
     assert snapshot == render_translations_proto(SlangCtx(ref_locale=locale))

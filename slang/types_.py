@@ -3,8 +3,7 @@ import abc
 from dataclasses import dataclass
 import dataclasses
 import enum
-from functools import cached_property
-from typing import Callable, Iterable, TypeVar
+from typing import Callable, TypeVar
 from result import Result, Ok, Err
 
 
@@ -62,7 +61,7 @@ class NameSpaceField(BaseField):
     @property
     def is_namespace(self) -> bool:
         return True
-    
+
     def get_child_namespace_fields(self) -> list[NameSpaceField]:
         ret: list[NameSpaceField] = []
         for field in self.fields:
@@ -85,24 +84,24 @@ class NameSpaceField(BaseField):
             if field.name == name:
                 return field
         raise ValueError(f"Field {name} is not defined in {self.full_name}.")
-    
+
     def compatible(self, other: BaseField, current_locale: str) -> Result[None, str]:
         """Ensure that both of the namespaces has the same fields."""
         if isinstance(other, NameSpaceField):
             for field in self.fields:
                 if any(
-                    field.compatible(other_field, current_locale)
-                    for other_field in other.fields
+                    field.compatible(other_field, current_locale) for other_field in other.fields
                 ):
                     return Ok(None)
 
         def pretty_error(other: NameSpaceField) -> str:
-            error_str = f"{current_locale}: {self.full_name} is not compatible with {other.full_name}. \n"
+            error_str = (
+                f"{current_locale}: {self.full_name} is not compatible with {other.full_name}. \n"
+            )
             error_str += "The following fields are missing:"
             for field in self.fields:
                 if not any(
-                    field.compatible(other_field, current_locale)
-                    for other_field in other.fields
+                    field.compatible(other_field, current_locale) for other_field in other.fields
                 ):
                     error_str += f"\n{field.full_name}"
             return error_str
@@ -163,6 +162,7 @@ class ArgumentType(enum.Enum):
             return "bool"
         raise ValueError(f"Unknown argument kind: {self}")
 
+
 @dataclass(slots=True, kw_only=True)
 class ArgumentDefinition:
     name: str
@@ -199,7 +199,9 @@ class ComplexField(BaseField):
             for arg in self.arguments:
                 if arg not in other.arguments:
                     other_arg = other.get_argument(arg.name)
-                    error_str += f"\n`{arg.name}: {arg.type}` != `{other_arg.name}: {other_arg.type}`"
+                    error_str += (
+                        f"\n`{arg.name}: {arg.type}` != `{other_arg.name}: {other_arg.type}`"
+                    )
             return error_str
 
         return Err(_find_field_error(self, other, current_locale, pretty_error))
@@ -217,9 +219,7 @@ class LocaleImpl:
             raise ValueError("Root field is not defined.")
         return self.root
 
-    def compatible(
-        self, other: LocaleImpl, current_namespace: str
-    ) -> Result[None, str]:
+    def compatible(self, other: LocaleImpl, current_namespace: str) -> Result[None, str]:
         """Ensure that both of the implementations has the same fields."""
         return self.get_root().compatible(other.get_root(), current_namespace)
 
@@ -231,12 +231,10 @@ class LocaleImpl:
                 ret.extend(field.get_child_namespace_fields())
                 ret.append(field)
         return ret
-                
-    
+
 
 @dataclass(slots=True, kw_only=True)
 class SlangCtx:
     ref_locale: LocaleImpl
     """Reference locale, all locales should match this one."""
     locales: list[LocaleImpl] = dataclasses.field(default_factory=list)
- 

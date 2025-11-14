@@ -8,7 +8,7 @@ from slang.types_ import (
     ArgumentDefinition,
     ComplexField,
 )
-from result import Result, Err, Ok
+from result import Result, Ok
 
 
 def parse(
@@ -34,15 +34,21 @@ def parse_namespace(
 
 
 complex_f_pattern = re.compile(r"^(\w+)\((.*)\)$")
+placeholder_pattern = re.compile(r"\{(\w+)\}")
 
 
-def parse_entry(
-    ctx: LocaleImpl, k: str, v: Any, parent: NameSpaceField | None = None
-) -> BaseField:
+def parse_entry(ctx: LocaleImpl, k: str, v: Any, parent: NameSpaceField | None = None) -> BaseField:
     if match := complex_f_pattern.fullmatch(k):
         return parse_complex(ctx, match, v, parent=parent)
     if isinstance(v, dict):
         return parse_namespace(ctx, v, k, parent=parent)
+    elif isinstance(v, str):
+        # Check for auto-detected placeholders in the template
+        placeholders = placeholder_pattern.findall(v)
+        if placeholders:
+            return parse_auto_complex(ctx, k, v, placeholders, parent=parent)
+        else:
+            return SimpleField(name=k, value=v, parent=parent)
     else:
         return SimpleField(name=k, value=v, parent=parent)
 
@@ -59,3 +65,18 @@ def parse_complex(
         arg_type = ArgumentType.from_string(arg_type_raw.strip())
         args.append(ArgumentDefinition(name=arg_name.strip(), type=arg_type))
     return ComplexField(name=name, arguments=args, template=v, parent=parent)
+
+
+def parse_auto_complex(
+    ctx: LocaleImpl,
+    name: str,
+    template: str,
+    placeholders: list[str],
+    parent: NameSpaceField | None = None,
+) -> ComplexField:
+    """Parse a complex field with auto-detected placeholders."""
+    args: list[ArgumentDefinition] = []
+    # Auto-detect argument types (default to string for simplicity)
+    for placeholder in set(placeholders):  # Use set to avoid duplicates
+        args.append(ArgumentDefinition(name=placeholder, type=ArgumentType.STR))
+    return ComplexField(name=name, arguments=args, template=template, parent=parent)

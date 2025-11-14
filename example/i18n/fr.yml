@@ -1,0 +1,67 @@
+# French translations for the example project
+app:
+    name: "Exemple de Slang"
+    tagline: "Traductions type-safe rendues faciles"
+    version: "Version 1.0.0"
+
+navigation:
+    home: "Accueil"
+    about: "À propos"
+    settings: "Paramètres"
+    help: "Aide"
+
+welcome:
+    title: "Bienvenue dans Slang !"
+    message: "Découvrez l'internationalisation type-safe pour Python"
+    get_started: "Commencer"
+
+user:
+    profile:
+        title: "Profil Utilisateur"
+        edit: "Modifier le Profil"
+        save: "Enregistrer les Modifications"
+        cancel: "Annuler"
+    preferences:
+        language: "Langue"
+        theme: "Thème"
+        notifications: "Notifications"
+
+greetings:
+    hello: "Bonjour, {name} !"
+    welcome_back: "Bon retour, {name} !"
+    good_morning: "Bonjour, {name} !"
+
+messages:
+    "count(count: int)": "Vous avez {count} messages"
+    "unread(unread: int)": "{unread} messages non lus"
+    empty: "Aucun message"
+    loading: "Chargement des messages..."
+
+notifications:
+    new_message: "Nouveau message de {sender}"
+    friend_request: "{user} vous a envoyé une demande d'ami"
+    "system_update(minutes: int)": "Le système se mettra à jour dans {minutes} minutes"
+
+errors:
+    not_found: "Page non trouvée"
+    unauthorized: "Accès refusé"
+    server_error: "Erreur interne du serveur"
+    network_error: "Échec de la connexion réseau"
+    validation_failed: "Veuillez vérifier votre saisie"
+
+actions:
+    save: "Enregistrer"
+    cancel: "Annuler"
+    delete: "Supprimer"
+    edit: "Modifier"
+    create: "Créer"
+    update: "Mettre à jour"
+    confirm: "Confirmer"
+    back: "Retour"
+
+status:
+    online: "En ligne"
+    offline: "Hors ligne"
+    loading: "Chargement..."
+    success: "Succès !"
+    error: "Une erreur s'est produite"
